@@ -16,5 +16,10 @@ namespace ODataExample.Repository
         {
             return base.GetAll();
         }
+
+        public Shift GetById(int key)
+        {
+            return _entities.Find(key);
+        }
     }
 }

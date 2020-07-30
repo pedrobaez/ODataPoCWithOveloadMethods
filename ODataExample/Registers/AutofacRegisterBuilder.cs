@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using ODataExample.Repository;
+using ODataExample.Repository.AddressRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace ODataExample.Registers
             IoCBuilder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             IoCBuilder.RegisterType<ShiftRepository>().AsImplementedInterfaces().SingleInstance();
+            IoCBuilder.RegisterType<AddressRepository>().AsImplementedInterfaces().SingleInstance();
 
             IContainer container = IoCBuilder.Build();
 

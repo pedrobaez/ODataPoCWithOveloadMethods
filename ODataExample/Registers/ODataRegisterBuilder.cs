@@ -1,4 +1,5 @@
 ﻿using ODataExample.EF;
+using ODataExample.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,7 @@ namespace ODataExample.Registers
             builder.EntitySet<SalesTerritory>("SalesTerritories");
             builder.EntitySet<SalesTerritoryHistory>("SalesTerritoryHistories");
             builder.EntitySet<ScrapReason>("ScrapReasons");
-            builder.EntitySet<Shift>("Shifts");
+            builder.EntitySet<EF.Shift>("Shifts");
             builder.EntitySet<ShipMethod>("ShipMethods");
             builder.EntitySet<ShoppingCartItem>("ShoppingCartItems");
             builder.EntitySet<SpecialOffer>("SpecialOffers");
@@ -88,9 +89,15 @@ namespace ODataExample.Registers
 
             builder.Namespace = "Default";
             builder.ContainerName = "DefaultContainer";
-            builder.EntityType<Shift>().Collection
-                              .Function("GetAll")
-                              .ReturnsCollectionFromEntitySet<Shift>("Shifts");
+          
+            builder.EntityType<EF.Shift>().Collection
+                             .Function("GetAll")
+                             .ReturnsCollectionFromEntitySet<EF.Shift>("Shifts");
+
+            builder.EntityType<EF.Shift>().Collection
+                             .Function("GetById")
+                             .ReturnsFromEntitySet<EF.Shift>("Shifts")
+                             .Parameter<int>("key");
 
             config.MapODataServiceRoute(
                routeName: "ODataRoute",

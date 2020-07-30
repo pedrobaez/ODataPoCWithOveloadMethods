@@ -1,34 +1,35 @@
-﻿using ODataExample.EF;
-using ODataExample.Repository;
+﻿using ODataExample.Repository;
+using ODataExample.Repository.AddressRepository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
-using System.Web.OData;
-using System.Web.OData.Routing;
 
-namespace ODataExample.Controllers
+namespace ODataExample.Controllers.WebApi
 {
-    [ODataRoutePrefix("Shifts")]
-    public class ShiftsController : ODataController
+    [RoutePrefix("Shifts")]
+    public class ShiftsController : ApiController
     {
-        private readonly IShiftRepository _shiftRepository ;
+        private readonly IShiftRepository _shiftRepository;
         public ShiftsController(IShiftRepository shiftRepository)
         {
             _shiftRepository = shiftRepository;
         }
         [HttpGet]
-        [EnableQuery]
+       
         public IHttpActionResult Get()
         {
             var data = _shiftRepository.GetAll();
             return Ok(data);
         }
         [HttpGet]
-        [EnableQuery]
+        [Route("GetAllPlain")]
         public IHttpActionResult GetAll()
         {
             var data = _shiftRepository.GetAll();
             return Ok(data);
         }
-
-
     }
 }
